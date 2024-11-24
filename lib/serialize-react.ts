@@ -1,4 +1,5 @@
 import type { ReactNode } from "react"
+import * as Comlink from "comlink"
 
 export type SerializedReactComponent = {
   type: string | Function
@@ -17,7 +18,9 @@ export function serializeReactNode(
   return {
     type:
       typeof element.type === "function"
-        ? element.type.toString()
+        ? Comlink.proxy(function SerializedReactFnProxy(...args: any[]) {
+            return serializeReactNode(element.type(...args))
+          })
         : element.type,
     props: {
       ...element.props,
