@@ -13,6 +13,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "comlink": "^4.4.2"
+    "comlink": "^4.4.2",
+    "debug": "^4.3.7"
   }
 }

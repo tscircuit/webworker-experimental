@@ -11,7 +11,8 @@
     "paths": {
       "lib/*": ["lib/*"],
       "tests/*": ["tests/*"],
-      "webworker-src/*": ["webworker-src/*"]
+      "webworker-src/*": ["webworker-src/*"],
+      "shared-src/*": ["shared-src/*"]
     },
 
     // Bundler mode
