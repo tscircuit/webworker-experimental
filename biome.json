@@ -32,6 +32,9 @@
         "noBannedTypes": "off",
         "noForEach": "info"
       },
+      "correctness": {
+        "noChildrenProp": "off"
+      },
       "style": {
         "noUselessElse": "off",
         "noNonNullAssertion": "off",

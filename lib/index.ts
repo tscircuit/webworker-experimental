@@ -18,7 +18,10 @@ export class WebWorkerCircuit {
   }
 
   add(component: React.ReactNode) {
-    const serialized = serializeReactNode(component)
+    const serialized = serializeReactNode(component, (name, fn) => {
+      this.api._registerProxy(`$proxy_${name}`, Comlink.proxy(fn))
+      return `$proxy_${name}`
+    })
     if (!serialized) {
       throw new Error("Invalid React component")
     }

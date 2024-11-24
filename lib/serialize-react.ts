@@ -9,6 +9,7 @@ export type SerializedReactComponent = {
 
 export function serializeReactNode(
   node: ReactNode,
+  registerProxy: (name: string, fn: any) => string,
 ): SerializedReactComponent | null {
   if (!node || typeof node !== "object") return null
 
@@ -18,16 +19,16 @@ export function serializeReactNode(
   return {
     type:
       typeof element.type === "function"
-        ? Comlink.proxy(function SerializedReactFnProxy(...args: any[]) {
-            return serializeReactNode(element.type(...args))
-          })
+        ? registerProxy(element.type.name, element.type)
         : element.type,
     props: {
       ...element.props,
       children: element.props?.children
         ? (Array.isArray(element.props.children)
-            ? element.props.children.map(serializeReactNode)
-            : [serializeReactNode(element.props.children)]
+            ? element.props.children.map((child: ReactNode) =>
+                serializeReactNode(child, registerProxy),
+              )
+            : [serializeReactNode(element.props.children, registerProxy)]
           ).filter(Boolean)
         : undefined,
     },
