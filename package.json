@@ -7,6 +7,7 @@
     "@tscircuit/core": "^0.0.199",
     "@types/bun": "latest",
     "@types/react": "^18.3.12",
+    "circuit-json": "^0.0.108",
     "react": "^18.3.1"
   },
   "peerDependencies": {

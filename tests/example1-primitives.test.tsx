@@ -1,6 +1,8 @@
 import { WebWorkerCircuit } from "lib"
 import "@tscircuit/core"
 import { describe, it, expect } from "bun:test"
+import { su } from "@tscircuit/soup-util"
+import type { SourceSimpleResistor } from "circuit-json"
 
 describe("WebWorkerCircuit with primitives", () => {
   it("should handle basic board with resistor", async () => {
@@ -14,8 +16,13 @@ describe("WebWorkerCircuit with primitives", () => {
 
     await circuit.renderUntilSettled()
 
-    const json = circuit.getCircuitJson()
-    expect(json).toBeDefined()
-    // Add more specific assertions as needed
+    const circuitJson = await circuit.getCircuitJson()
+    expect(circuitJson).toBeDefined()
+
+    const resistor = su(circuitJson).source_component.getWhere({
+      name: "R1",
+    }) as SourceSimpleResistor
+
+    expect(resistor?.resistance).toBe(10_000)
   })
 })
