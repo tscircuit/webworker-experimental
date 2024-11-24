@@ -1,6 +1,7 @@
 import type React from "react"
 import * as Comlink from "comlink"
 import type { WorkerApi } from "shared-src/types"
+import { serializeReactNode } from "./serialize-react"
 
 export class WebWorkerCircuit {
   worker: Worker
@@ -17,7 +18,12 @@ export class WebWorkerCircuit {
   }
 
   add(component: React.ReactNode) {
-    return this.api.add(component)
+    const serialized = serializeReactNode(component)
+    if (!serialized) {
+      throw new Error("Invalid React component")
+    }
+    console.log("serialized", serialized)
+    return this.api.add(serialized)
   }
 
   async renderUntilSettled() {

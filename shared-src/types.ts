@@ -1,5 +1,7 @@
+import type { SerializedReactComponent } from "../lib/serialize-react"
+
 export type WorkerApi = {
-  add: (component: any) => void
+  add: (component: SerializedReactComponent) => void
   renderUntilSettled: () => Promise<void>
   getCircuitJson: () => any
 }
