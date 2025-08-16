@@ -2,6 +2,9 @@
 
 Run @tscircuit/core inside of a WebWorker for improved parallelism and isolation
 
+> [!TIP]
+> This is now available via [@tscircuit/eval](https://github.com/tscircuit/eval)
+
 This module functions as a drop-in replacement for @tscircuit/core with some
 extra functions for transferring components to the inside of the webworker.
 
